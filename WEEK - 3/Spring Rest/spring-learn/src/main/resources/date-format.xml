@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ============================================================
+    date-format.xml  —  Spring XML Configuration File
+    Location: src/main/resources/date-format.xml
+    ============================================================
+
+    This file defines Spring beans using the classic XML-based
+    configuration approach (before annotations were introduced).
+
+    Key XML namespaces:
+      xmlns          → default Spring beans namespace
+      xmlns:xsi      → XML Schema Instance (for xsi:schemaLocation)
+      schemaLocation → URL pair: namespace URI + XSD location
+                       Spring uses the XSD to validate this XML.
+
+    How Spring loads this file:
+      ClassPathXmlApplicationContext("date-format.xml") searches
+      for this file on the classpath (i.e., src/main/resources/).
+    ============================================================
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        Bean Definition: dateFormat
+        ===========================
+        id        → unique name used to retrieve the bean via getBean("dateFormat")
+        class     → fully qualified class name of the bean to instantiate
+                    (java.text.SimpleDateFormat)
+
+        SimpleDateFormat does NOT have a no-arg constructor that sets a pattern,
+        so we use <constructor-arg> to pass the pattern string to the
+        single-argument constructor: new SimpleDateFormat("dd/MM/yyyy")
+
+        <constructor-arg>
+          value → the literal String value passed to the constructor.
+                  Pattern tokens:
+                    dd   → day of month (01–31)
+                    MM   → month of year (01–12)
+                    yyyy → 4-digit year
+
+        Benefit: Only ONE instance of SimpleDateFormat is created and managed
+        by the Spring container. Every call to getBean("dateFormat") returns
+        the same singleton instance — no redundant object creation across
+        the application.
+    -->
+    <bean id="dateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg value="dd/MM/yyyy" />
+    </bean>
+
+</beans>

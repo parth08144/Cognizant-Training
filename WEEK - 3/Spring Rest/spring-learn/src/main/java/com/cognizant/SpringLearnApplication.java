@@ -2,8 +2,14 @@ package com.cognizant;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * ============================================================
@@ -60,6 +66,9 @@ public class SpringLearnApplication {
         logger.info("  SpringLearnApplication is STARTING   ");
         logger.info("========================================");
 
+        // Hands On 2: Load SimpleDateFormat from Spring XML config
+        displayDate();
+
         // Bootstrap the Spring Boot application
         SpringApplication.run(SpringLearnApplication.class, args);
 
@@ -68,5 +77,54 @@ public class SpringLearnApplication {
         logger.info("  SpringLearnApplication STARTED        ");
         logger.info("  Server running at http://localhost:8080");
         logger.info("========================================");
+    }
+
+    /**
+     * displayDate() — Hands On 2
+     * ===========================
+     * Demonstrates loading a bean from a Spring XML configuration file.
+     *
+     * Steps:
+     *  1. Create ApplicationContext from 'date-format.xml' on the classpath.
+     *     ClassPathXmlApplicationContext reads src/main/resources/date-format.xml
+     *     and instantiates all declared beans into the Spring IoC container.
+     *
+     *  2. Retrieve the 'dateFormat' bean using getBean().
+     *     Spring returns the singleton SimpleDateFormat("dd/MM/yyyy") bean.
+     *
+     *  3. Parse the string '31/12/2018' into a java.util.Date object.
+     *
+     *  4. Print the parsed Date to the console.
+     */
+    public static void displayDate() {
+        // Step 1: Bootstrap the Spring IoC container from the XML config file.
+        // ClassPathXmlApplicationContext looks for 'date-format.xml' in:
+        //   src/main/resources/  (which is on the classpath at runtime)
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext("date-format.xml");
+
+        // Step 2: Retrieve the 'dateFormat' bean by ID and type.
+        // getBean(String name, Class<T> requiredType) returns a type-safe bean.
+        // Spring returns the singleton SimpleDateFormat("dd/MM/yyyy") instance.
+        SimpleDateFormat format =
+                context.getBean("dateFormat", SimpleDateFormat.class);
+
+        try {
+            // Step 3: Parse the string '31/12/2018' using the dd/MM/yyyy pattern.
+            // SimpleDateFormat.parse() converts the String → java.util.Date
+            Date date = format.parse("31/12/2018");
+
+            // Step 4: Display the parsed Date object in the console.
+            System.out.println("====================================");
+            System.out.println("  Hands On 2 — Spring XML Bean Demo ");
+            System.out.println("  Input  : 31/12/2018");
+            System.out.println("  Parsed : " + date);
+            System.out.println("====================================");
+
+        } catch (ParseException e) {
+            // ParseException is thrown if the input string does not match
+            // the pattern 'dd/MM/yyyy' defined in the bean.
+            logger.error("Failed to parse date string: {}", e.getMessage());
+        }
     }
 }
