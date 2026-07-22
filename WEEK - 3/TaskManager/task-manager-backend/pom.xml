@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ===================================================
+         PARENT: Spring Boot Starter Parent
+         Provides default dependency management and plugin
+         configurations for Spring Boot applications.
+         =================================================== -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <!-- ===================================================
+         PROJECT COORDINATES
+         =================================================== -->
+    <groupId>com.cognizant</groupId>
+    <artifactId>task-manager</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>task-manager</name>
+    <description>In-Memory Task Manager — Spring Boot REST API (Cognizant Training Week 3)</description>
+
+    <!-- ===================================================
+         PROPERTIES
+         =================================================== -->
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <!-- ===================================================
+         DEPENDENCIES
+         Only spring-boot-starter-web is needed.
+         No JPA / database — tasks are stored in-memory.
+         =================================================== -->
+    <dependencies>
+
+        <!-- 1. Spring Web
+             Provides Spring MVC, embedded Tomcat server,
+             REST controllers, JSON serialization (Jackson), etc.
+             scope: compile (default) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- 2. Spring Boot DevTools
+             Enables hot-reload / live-restart during development.
+             scope: runtime + optional -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 3. Spring Boot Test
+             JUnit 5, Mockito, AssertJ, Spring test utilities.
+             scope: test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- ===================================================
+         BUILD PLUGINS
+         =================================================== -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
