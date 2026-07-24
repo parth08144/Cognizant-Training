@@ -1,27 +1,7 @@
-/**
- * Exercise 3: Assertions in JUnit
- *
- * Demonstrates different types of assertions used in JUnit testing.
- * Since Maven/JUnit JARs are not available, this uses a custom
- * assertion framework that mimics JUnit assertion methods:
- *
- *   assertEquals(expected, actual)  - checks equality
- *   assertTrue(condition)           - checks if true
- *   assertFalse(condition)          - checks if false
- *   assertNull(object)              - checks if null
- *   assertNotNull(object)           - checks if not null
- *   assertArrayEquals(arr1, arr2)   - checks array equality
- *   assertSame(obj1, obj2)          - checks reference equality
- *   assertNotSame(obj1, obj2)       - checks reference inequality
- */
 public class AssertionsTest {
 
     private static int passed = 0;
     private static int failed = 0;
-
-    // =====================================================
-    // Custom Assert Methods (mimics JUnit Assert class)
-    // =====================================================
 
     private static void assertEquals(String message, Object expected, Object actual) {
         if (expected.equals(actual)) {
@@ -125,24 +105,14 @@ public class AssertionsTest {
         }
     }
 
-    // =====================================================
-    // Test 1: assertEquals - Checks if two values are equal
-    // =====================================================
-
     public void testAssertEquals() {
-        // Integer equality
+
         assertEquals("2 + 3 should equal 5", 5, 2 + 3);
 
-        // String equality
         assertEquals("String concatenation", "HelloWorld", "Hello" + "World");
 
-        // Double equality with delta
         assertEquals("0.1 + 0.2 should be close to 0.3", 0.3, 0.1 + 0.2, 0.0001);
     }
-
-    // =====================================================
-    // Test 2: assertTrue - Checks if condition is true
-    // =====================================================
 
     public void testAssertTrue() {
         assertTrue("5 is greater than 3", 5 > 3);
@@ -150,19 +120,11 @@ public class AssertionsTest {
         assertTrue("10 is even", 10 % 2 == 0);
     }
 
-    // =====================================================
-    // Test 3: assertFalse - Checks if condition is false
-    // =====================================================
-
     public void testAssertFalse() {
         assertFalse("5 is NOT less than 3", 5 < 3);
         assertFalse("Empty string is empty", "".length() > 0);
         assertFalse("7 is NOT even", 7 % 2 == 0);
     }
-
-    // =====================================================
-    // Test 4: assertNull - Checks if object is null
-    // =====================================================
 
     public void testAssertNull() {
         Object obj = null;
@@ -170,29 +132,17 @@ public class AssertionsTest {
         assertNull("Variable set to null should be null", obj);
     }
 
-    // =====================================================
-    // Test 5: assertNotNull - Checks if object is not null
-    // =====================================================
-
     public void testAssertNotNull() {
         assertNotNull("new Object() should not be null", new Object());
         assertNotNull("String literal should not be null", "Hello");
         assertNotNull("Integer array should not be null", new int[]{1, 2, 3});
     }
 
-    // =====================================================
-    // Test 6: assertSame - Checks reference equality
-    // =====================================================
-
     public void testAssertSame() {
         String str1 = "Hello";
-        String str2 = str1;  // same reference
+        String str2 = str1;  
         assertSame("str1 and str2 should point to same object", str1, str2);
     }
-
-    // =====================================================
-    // Test 7: assertNotSame - Checks reference inequality
-    // =====================================================
 
     public void testAssertNotSame() {
         String str1 = new String("Hello");
@@ -200,19 +150,11 @@ public class AssertionsTest {
         assertNotSame("Two new String objects should be different references", str1, str2);
     }
 
-    // =====================================================
-    // Test 8: assertArrayEquals - Checks array equality
-    // =====================================================
-
     public void testAssertArrayEquals() {
         int[] expected = {1, 2, 3, 4, 5};
         int[] actual   = {1, 2, 3, 4, 5};
         assertArrayEquals("Arrays with same elements should be equal", expected, actual);
     }
-
-    // =====================================================
-    // Test Runner
-    // =====================================================
 
     private void runTest(String testName, Runnable test) {
         System.out.println("Running: " + testName);
@@ -247,7 +189,6 @@ public class AssertionsTest {
         System.out.println();
         tester.runTest("testAssertArrayEquals", tester::testAssertArrayEquals);
 
-        // --- Summary ---
         System.out.println("\n==============================================");
         System.out.println("   TEST RESULTS: " + passed + " passed, " + failed + " failed");
         System.out.println("   Total Assertions: " + (passed + failed));

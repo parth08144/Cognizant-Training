@@ -4,7 +4,7 @@ import { CohortsData} from './Cohort'
 import CohortDetails from './CohortDetails'; 
 
 function App() {
- 
+
   return (
   <div>
     <h1>Cohorts Details</h1>

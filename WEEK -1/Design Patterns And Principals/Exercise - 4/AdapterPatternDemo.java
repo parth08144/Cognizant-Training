@@ -1,8 +1,6 @@
-// Target Interface
 interface PaymentProcessor {
     void processPayment(double amount);
 }
-
 
 class PayPalGateway {
 
@@ -12,7 +10,6 @@ class PayPalGateway {
     }
 }
 
-
 class StripeGateway {
 
     public void makeCharge(double amount) {
@@ -20,7 +17,6 @@ class StripeGateway {
         System.out.println("Amount Paid: ₹" + amount);
     }
 }
-
 
 class PayPalAdapter implements PaymentProcessor {
 
@@ -36,7 +32,6 @@ class PayPalAdapter implements PaymentProcessor {
     }
 }
 
-
 class StripeAdapter implements PaymentProcessor {
 
     private StripeGateway stripeGateway;
@@ -51,18 +46,15 @@ class StripeAdapter implements PaymentProcessor {
     }
 }
 
-
 public class AdapterPatternDemo {
 
     public static void main(String[] args) {
 
-        
         PaymentProcessor paypal = new PayPalAdapter(new PayPalGateway());
         paypal.processPayment(1500);
 
         System.out.println();
 
-        
         PaymentProcessor stripe = new StripeAdapter(new StripeGateway());
         stripe.processPayment(2500);
     }

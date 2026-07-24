@@ -1,14 +1,11 @@
 public class Logger {
 
-    // Sirf ek object store karne ke liye
     private static Logger instance;
 
-    // Private constructor
     private Logger() {
         System.out.println("Logger instance create ho gaya");
     }
 
-    // Singleton object return karega
     public static Logger getInstance() {
         if (instance == null) {
             instance = new Logger();
@@ -16,12 +13,10 @@ public class Logger {
         return instance;
     }
 
-    // Log message print karne ke liye
     public void log(String message) {
         System.out.println("LOG: " + message);
     }
 
-    // Main method class ke andar hi honi chahiye
     public static void main(String[] args) {
 
         Logger logger1 = Logger.getInstance();

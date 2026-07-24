@@ -1,8 +1,6 @@
-
-
 public class BuilderPatternExample {
     static class Computer {
-        
+
         private String CPU;
         private String GPU;
         private String RAM;
@@ -49,7 +47,7 @@ public class BuilderPatternExample {
                 .setGPU("NVIDIA RTX 3080")
                 .setRAM("32GB")
                 .build();
-        
+
         Computer officePC = new Computer.Builder()
                 .setCPU("Intel i5")
                 .setGPU("Integrated Graphics")
@@ -63,5 +61,4 @@ public class BuilderPatternExample {
         officePC.display();
     }
 
-    
 }

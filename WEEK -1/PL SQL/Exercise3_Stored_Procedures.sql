@@ -1,21 +1,10 @@
--- ============================================================
--- Exercise 3: Stored Procedures
--- ============================================================
-
-
--- ============================================================
--- Table Setup (Run these first to create the required tables)
--- ============================================================
-
--- Accounts Table
 CREATE TABLE Accounts (
     AccountID       NUMBER PRIMARY KEY,
     CustomerID      NUMBER,
-    AccountType     VARCHAR2(20),    -- 'Savings' or 'Current'
+    AccountType     VARCHAR2(20),    
     Balance         NUMBER(15, 2)
 );
 
--- Employees Table
 CREATE TABLE Employees (
     EmployeeID      NUMBER PRIMARY KEY,
     Name            VARCHAR2(100),
@@ -23,7 +12,6 @@ CREATE TABLE Employees (
     Salary          NUMBER(15, 2)
 );
 
--- Sample Data for Accounts
 INSERT INTO Accounts VALUES (1001, 1, 'Savings', 50000.00);
 INSERT INTO Accounts VALUES (1002, 2, 'Current', 75000.00);
 INSERT INTO Accounts VALUES (1003, 3, 'Savings', 30000.00);
@@ -31,7 +19,6 @@ INSERT INTO Accounts VALUES (1004, 4, 'Savings', 120000.00);
 INSERT INTO Accounts VALUES (1005, 5, 'Current', 45000.00);
 INSERT INTO Accounts VALUES (1006, 6, 'Savings', 90000.00);
 
--- Sample Data for Employees
 INSERT INTO Employees VALUES (201, 'Amit Patel',     'IT',      60000.00);
 INSERT INTO Employees VALUES (202, 'Neha Gupta',     'HR',      55000.00);
 INSERT INTO Employees VALUES (203, 'Ravi Shankar',   'IT',      70000.00);
@@ -40,12 +27,6 @@ INSERT INTO Employees VALUES (205, 'Karan Joshi',    'HR',      50000.00);
 INSERT INTO Employees VALUES (206, 'Deepa Nair',     'Finance', 72000.00);
 
 COMMIT;
-
-
--- ============================================================
--- Scenario 1: Process Monthly Interest for Savings Accounts
---   Applies 1% interest to all savings account balances
--- ============================================================
 
 CREATE OR REPLACE PROCEDURE ProcessMonthlyInterest
 IS
@@ -79,14 +60,6 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('Monthly interest applied successfully.');
 END;
 /
-
-
-
-
--- ============================================================
--- Scenario 2: Update Employee Bonus Based on Department
---   Adds a bonus percentage to salary for a given department
--- ============================================================
 
 CREATE OR REPLACE PROCEDURE UpdateEmployeeBonus (
     p_department   IN VARCHAR2,
@@ -132,15 +105,6 @@ BEGIN
 END;
 /
 
-
-
-
--- ============================================================
--- Scenario 3: Transfer Funds Between Accounts
---   Transfers amount from source to destination account
---   with sufficient balance check
--- ============================================================
-
 CREATE OR REPLACE PROCEDURE TransferFunds (
     p_source_acc   IN NUMBER,
     p_dest_acc     IN NUMBER,
@@ -158,13 +122,11 @@ BEGIN
                          ' | Amount: ' || p_amount);
     DBMS_OUTPUT.PUT_LINE('==========================================');
 
-    -- Validate transfer amount
     IF p_amount <= 0 THEN
         DBMS_OUTPUT.PUT_LINE('ERROR: Transfer amount must be greater than zero.');
         RETURN;
     END IF;
 
-    -- Check if source account exists
     SELECT COUNT(*) INTO v_source_exists
     FROM Accounts
     WHERE AccountID = p_source_acc;
@@ -174,7 +136,6 @@ BEGIN
         RETURN;
     END IF;
 
-    -- Check if destination account exists
     SELECT COUNT(*) INTO v_dest_exists
     FROM Accounts
     WHERE AccountID = p_dest_acc;
@@ -184,7 +145,6 @@ BEGIN
         RETURN;
     END IF;
 
-    -- Check sufficient balance in source account
     SELECT Balance INTO v_source_balance
     FROM Accounts
     WHERE AccountID = p_source_acc;
@@ -196,12 +156,10 @@ BEGIN
         RETURN;
     END IF;
 
-    -- Debit from source account
     UPDATE Accounts
     SET Balance = Balance - p_amount
     WHERE AccountID = p_source_acc;
 
-    -- Credit to destination account
     UPDATE Accounts
     SET Balance = Balance + p_amount
     WHERE AccountID = p_dest_acc;
@@ -213,5 +171,3 @@ BEGIN
                          ' New Balance: ' || (v_source_balance - p_amount));
 END;
 /
-
-

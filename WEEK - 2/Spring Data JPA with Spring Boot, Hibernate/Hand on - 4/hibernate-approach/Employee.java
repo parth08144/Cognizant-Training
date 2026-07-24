@@ -7,26 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Employee - JPA Entity used in both Hibernate and Spring Data JPA examples.
- *
- * The @Entity, @Table, @Id, @Column annotations come from JPA specification (javax.persistence).
- * Both Hibernate and Spring Data JPA read these annotations — this is what JPA standardizes!
- *
- * KEY POINT:
- *   The ENTITY class is identical whether you use plain Hibernate or Spring Data JPA.
- *   JPA standardizes how entities are DEFINED.
- *   What differs is how you QUERY and MANAGE those entities.
- */
 @Entity
 @Table(name = "employee")
 public class Employee {
 
-    /**
-     * @Id             -> Primary key field
-     * @GeneratedValue -> Auto-increment (DB generates the ID value)
-     *                    IDENTITY = uses the DB column's AUTO_INCREMENT feature
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")
@@ -41,11 +25,6 @@ public class Employee {
     @Column(name = "emp_salary")
     private double salary;
 
-    // -------------------------------------------------------
-    // Constructors
-    // -------------------------------------------------------
-
-    // No-arg constructor — Required by JPA spec
     public Employee() {}
 
     public Employee(String firstName, String lastName, double salary) {
@@ -53,10 +32,6 @@ public class Employee {
         this.lastName  = lastName;
         this.salary    = salary;
     }
-
-    // -------------------------------------------------------
-    // Getters and Setters
-    // -------------------------------------------------------
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -69,10 +44,6 @@ public class Employee {
 
     public double getSalary() { return salary; }
     public void setSalary(double salary) { this.salary = salary; }
-
-    // -------------------------------------------------------
-    // toString()
-    // -------------------------------------------------------
 
     @Override
     public String toString() {

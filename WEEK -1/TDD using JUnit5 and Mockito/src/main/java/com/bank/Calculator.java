@@ -1,50 +1,17 @@
-
-/**
- * Exercise 1: Setting Up JUnit
- *
- * A simple Calculator class to demonstrate unit testing with JUnit.
- * This class provides basic arithmetic operations that will be
- * tested using JUnit test cases.
- */
 public class Calculator {
 
-    /**
-     * Adds two integers and returns the result.
-     * @param a first number
-     * @param b second number
-     * @return sum of a and b
-     */
     public int add(int a, int b) {
         return a + b;
     }
 
-    /**
-     * Subtracts second integer from the first and returns the result.
-     * @param a first number
-     * @param b second number
-     * @return difference of a and b
-     */
     public int subtract(int a, int b) {
         return a - b;
     }
 
-    /**
-     * Multiplies two integers and returns the result.
-     * @param a first number
-     * @param b second number
-     * @return product of a and b
-     */
     public int multiply(int a, int b) {
         return a * b;
     }
 
-    /**
-     * Divides the first integer by the second and returns the result.
-     * @param a dividend
-     * @param b divisor
-     * @return quotient of a divided by b
-     * @throws ArithmeticException if b is zero
-     */
     public double divide(int a, int b) {
         if (b == 0) {
             throw new ArithmeticException("Cannot divide by zero");
@@ -52,9 +19,6 @@ public class Calculator {
         return (double) a / b;
     }
 
-    /**
-     * Main method to demonstrate Calculator operations.
-     */
     public static void main(String[] args) {
         Calculator calc = new Calculator();
 

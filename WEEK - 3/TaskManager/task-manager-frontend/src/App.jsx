@@ -1,22 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchAllTasks, createTask, updateTask, deleteTask } from './api';
 
-/**
- * ============================================================
- * App — Main Component for the Task Manager
- * ============================================================
- *
- * State:
- *   tasks       — array of task objects from the backend
- *   newTitle    — controlled input for the "add task" field
- *   editingId   — id of the task currently being edited (null if none)
- *   editTitle   — controlled input for the inline edit field
- *   loading     — true while the initial fetch is in progress
- *   error       — error message string (null if no error)
- *
- * All CRUD operations call the Spring Boot REST API and then
- * refresh the local state from the response.
- */
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [newTitle, setNewTitle] = useState('');
@@ -25,7 +9,6 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ── Load tasks on mount ─────────────────────────────────
   useEffect(() => {
     loadTasks();
   }, []);
@@ -43,7 +26,6 @@ export default function App() {
     }
   }
 
-  // ── CREATE ──────────────────────────────────────────────
   async function handleAdd(e) {
     e.preventDefault();
     const title = newTitle.trim();
@@ -59,7 +41,6 @@ export default function App() {
     }
   }
 
-  // ── TOGGLE completed ───────────────────────────────────
   async function handleToggle(task) {
     try {
       const updated = await updateTask(task.id, {
@@ -75,13 +56,11 @@ export default function App() {
     }
   }
 
-  // ── START EDIT ──────────────────────────────────────────
   function handleEditStart(task) {
     setEditingId(task.id);
     setEditTitle(task.title);
   }
 
-  // ── SAVE EDIT ───────────────────────────────────────────
   async function handleEditSave(task) {
     const title = editTitle.trim();
     if (!title) return;
@@ -102,13 +81,11 @@ export default function App() {
     }
   }
 
-  // ── CANCEL EDIT ─────────────────────────────────────────
   function handleEditCancel() {
     setEditingId(null);
     setEditTitle('');
   }
 
-  // ── DELETE ──────────────────────────────────────────────
   async function handleDelete(id) {
     try {
       await deleteTask(id);
@@ -119,20 +96,18 @@ export default function App() {
     }
   }
 
-  // ── Computed stats ──────────────────────────────────────
   const completedCount = tasks.filter((t) => t.completed).length;
   const pendingCount = tasks.length - completedCount;
 
-  // ── Render ──────────────────────────────────────────────
   return (
     <div className="app-container">
-      {/* ── Header ─────────────────────────────────────── */}
+      {}
       <header className="app-header">
         <h1>✦ Task Manager</h1>
         <p>In-Memory CRUD — React + Spring Boot</p>
       </header>
 
-      {/* ── Stats Bar ──────────────────────────────────── */}
+      {}
       {tasks.length > 0 && (
         <div className="stats-bar">
           <div className="stat-item">
@@ -150,7 +125,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ── Error Banner ───────────────────────────────── */}
+      {}
       {error && (
         <div className="error-banner">
           <span>⚠️ {error}</span>
@@ -158,7 +133,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ── Add Task Form ──────────────────────────────── */}
+      {}
       <form className="add-task-form" onSubmit={handleAdd}>
         <input
           id="new-task-input"
@@ -178,7 +153,7 @@ export default function App() {
         </button>
       </form>
 
-      {/* ── Loading State ──────────────────────────────── */}
+      {}
       {loading && (
         <div className="loading">
           <div className="spinner"></div>
@@ -186,7 +161,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ── Task List ──────────────────────────────────── */}
+      {}
       {!loading && tasks.length === 0 && (
         <div className="empty-state">
           <div className="empty-icon">📋</div>
@@ -203,7 +178,7 @@ export default function App() {
               className={`task-item ${task.completed ? 'completed' : ''}`}
               id={`task-${task.id}`}
             >
-              {/* ── Checkbox ───────────────────────────── */}
+              {}
               <label className="task-checkbox">
                 <input
                   type="checkbox"
@@ -213,7 +188,7 @@ export default function App() {
                 <span className="checkmark"></span>
               </label>
 
-              {/* ── Title / Edit Input ─────────────────── */}
+              {}
               {editingId === task.id ? (
                 <input
                   className="edit-input"
@@ -230,7 +205,7 @@ export default function App() {
                 <span className="task-title">{task.title}</span>
               )}
 
-              {/* ── Action Buttons ─────────────────────── */}
+              {}
               <div className="task-actions">
                 {editingId === task.id ? (
                   <>

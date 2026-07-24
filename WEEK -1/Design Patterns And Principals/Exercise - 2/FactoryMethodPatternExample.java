@@ -9,7 +9,6 @@ public class FactoryMethodPatternExample {
             System.out.println("Opening Word Document");
         }
 
-    
     }
 
     class PdfDocument implements Document {
@@ -26,12 +25,10 @@ public class FactoryMethodPatternExample {
         }
     }
 
-    // Abstract class
     abstract class DocumentFactory {
         abstract Document createDocument();
     }
 
-    // Concrete classes
     class WordDocumentFactory extends DocumentFactory {
         @Override
         Document createDocument() {
@@ -51,8 +48,6 @@ public class FactoryMethodPatternExample {
         }
     }
 
-    //Test
-
     public static void main(String[] args) {
         FactoryMethodPatternExample example = new FactoryMethodPatternExample();
 
@@ -68,5 +63,5 @@ public class FactoryMethodPatternExample {
         Document excelDocument = excelFactory.createDocument();
         excelDocument.open();
     }
-    
+
 }
